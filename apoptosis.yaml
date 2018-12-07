@@ -1,0 +1,57 @@
+- name: Apoptosis
+- description: Apoptosis module of the PARCDL model based on the
+  receptor-mediated apoptosis model published in Albeck et al. 2008.
+- units:
+    - concentration: molecules/cell
+    - time: sec
+- modules:
+    - Receptor to Bid Cleavage
+        - TRAIL binds to DR5.
+            - policy: one_step
+            - parameters:
+                - kf:
+                    - value: 4e-7
+                    - name: kA1
+                - kr:
+                    - value: 1e-3
+                    - name: kA2
+        - TRAIL bound to DR5 is converted to DISC.
+            - policy: one_step
+            - parameters:
+                - kc:
+                    - value: 1e-5
+                    - name: kA3
+        - DISC not bound to CASP8 binds CFLAR.
+            - policy: one_step
+            - parameters:
+                - kf:
+                    - value: 1e-6
+                    - name: kA4
+                - kr:
+                    - value: 1e-3
+                    - name: kA5
+        - DISC not bound to CFLAR activates CASP8 not bound to BFAR.
+            - policy: two_step
+            - parameters:
+                - kf:
+                    - value: 1e-6
+                    - name: kA6
+                - kr:
+                    - value: 1e-3
+                    - name: kA7
+                - kc:
+                    - value: 1
+                    - name: kA8
+        - CASP8 not bound to DISC binds BFAR.
+            - policy: one_step
+            - parameters:
+                - kf:
+                    - value: 1e-6
+                    - name: kA9
+                - kr:
+                    - value: 1e-3
+                    - name: kA10
+        - Active CASP8 not bound to DISC or BFAR activates BID
+
+
+
